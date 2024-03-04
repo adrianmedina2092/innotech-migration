@@ -1,0 +1,23 @@
+@media (max-width: 768px) {
+  .hidden.md\:block {
+    display: block !important;
+  }
+}
+
+.group:hover .group-hover\:block {
+  display: block;
+}
+
+.group:hover .group-hover\:none {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .group:hover .group-hover\:none {
+    display: block;
+  }
+}
+
+.size{
+    width: 100% !important;
+}
