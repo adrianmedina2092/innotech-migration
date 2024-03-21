@@ -10,9 +10,10 @@ import {
   faBars,
   faCircleUser,
 } from '@fortawesome/free-solid-svg-icons';
+import { DataService } from '../../../core/services/data.service';
 
 @Component({
-  selector: 'app-menu',
+  selector: 'topbar',
   standalone: true,
   imports: [CommonModule, RouterModule, FontAwesomeModule],
   templateUrl: './navbar.component.html',
@@ -32,9 +33,11 @@ export class NavbarComponent {
   };
 
   dropdownChildPosition = {
-    top: '-50px',
+    top: '-100px',
     left: '100%',
   };
+
+  constructor(private _dataService: DataService){}
 
   toggleMenu(): void {
     this.isMenuOpen = !this.isMenuOpen;
@@ -44,14 +47,11 @@ export class NavbarComponent {
     if (item.childrens && item.childrens.length > 0) {
       item.showChildren = true;
     }
-    console.log(event);
-    console.log(item);
-
     const target = event.target as HTMLElement;
     const parent = target.closest('li');
+
     if (parent) {
       const rect = parent.getBoundingClientRect();
-      console.log(rect);
 
       this.dropdownPosition = {
         top: `${rect.x - rect.y}px`,
@@ -59,13 +59,20 @@ export class NavbarComponent {
       };
 
       this.dropdownChildPosition = {
-        top: `${rect.bottom - rect.top}px`,
+        top: `${(rect.top / 0)}px`,
         left: `${rect.right - rect.left}px`,
       };
+
+      console.log(this.dropdownChildPosition.top);
+      
     }
   }
 
   hideDropdown(item: MenuItem): void {
     item.showChildren = false;
+  }
+
+  setValues(){
+
   }
 }

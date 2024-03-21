@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
-import { RouterModule, RouterOutlet } from '@angular/router';
-import { NavbarComponent } from './shared/components/navbar/navbar.component';
+import { RouterOutlet } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-import { menu } from './constants/menu';
-import { MenuItem } from './core/models/core.interface';
+
+import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { HomeHeroComponent } from './shared/components/home-hero/home-hero.component';
+
+import { MenuItem } from './core/models/core.interface';
+import { menu } from './constants/menu';
 
 @Component({
   selector: 'app-root',
@@ -15,6 +18,4 @@ import { HomeHeroComponent } from './shared/components/home-hero/home-hero.compo
 })
 export class AppComponent {
   menuItems: MenuItem[] = menu;
-
-  homeBackground: string = "assets/images/paris.jpeg"
 }

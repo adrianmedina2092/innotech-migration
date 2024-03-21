@@ -2,5 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Estilos para el scrollbar */
+/* Ancho del scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Fondo del scrollbar */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Estilo del thumb (el indicador del scrollbar que puedes arrastrar) */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 50px;
+}
+
+/* Al hacer hover sobre el scrollbar */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
