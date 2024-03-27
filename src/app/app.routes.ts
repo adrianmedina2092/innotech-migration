@@ -10,11 +10,11 @@ export const ROUTES: Routes = [
   {
     path: "home",
     component: HomeComponent,
-    /* canActivate: [authGuard] */
+    canActivate: [authGuard]
   },
   {
     path: 'page',
-    /* canActivate: [authGuard], */
+    canActivate: [authGuard],
     loadChildren: () =>
       import('./admin/admin.routes').then((m) => m.ADMIN_ROUTES),
   },

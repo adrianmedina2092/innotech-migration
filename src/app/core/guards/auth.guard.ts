@@ -7,5 +7,5 @@ export const authGuard: CanActivateFn = (route, state) => {
 
   const authService = inject(AuthService);
 
-  return authService.isAuthenticatedUser()
+  return authService.getIsAuth()
 };

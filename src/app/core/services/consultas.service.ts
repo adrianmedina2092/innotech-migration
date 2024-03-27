@@ -8,7 +8,4 @@ export class ConsultasService {
 
   constructor(private _http: HttpClient) {}
 
-  getDataOperacionesLiquidacion(){
-    
-  }
 }

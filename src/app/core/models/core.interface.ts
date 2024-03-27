@@ -14,5 +14,13 @@ export interface BredcrumbModel {
 
 export interface Login {
   username: string;
-  passsword: string;
+  password: string;
+}
+
+export interface Filters {
+  filtros: Array<string>;
+  firstRow: number;
+  informe: string;
+  language: string;
+  lastRow: number;
 }

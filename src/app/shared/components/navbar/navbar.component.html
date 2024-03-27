@@ -1,4 +1,9 @@
-<nav class="bg-primary p-4">
+<ng-container *ngIf="isAuth"></ng-container>
+
+
+
+
+<nav class="sticky bg-primary p-4 w-full z-10">
     <div class="flex items-center justify-between flex-wrap">
         <div class="flex items-center flex-shrink-0 text-white mr-6 ">
             <img routerLink="home" class="cursor-pointer sm:h-20 sm:w-28 xsm:h-28 xsm:w-36" src={{logo}} />
@@ -13,68 +18,78 @@
             </button>
         </div>
 
-        <!-- <div class=""></div> -->
+        <ng-container *ngIf="isAuth">
+            <div class="flex-1 w-full lg:items-center justify-center ml-auto mr-auto lg:w-auto xl:block mt-2 lg:mt-0"
+                [class.hidden]="!isMenuOpen" id="nav-content">
+                <ul class="list-reset xl:flex justify-center items-center">
+                    <ng-container *ngFor="let item of menuItems">
+                        <li class="mr-3" (mouseenter)="showDropdown($event, item)" (mouseleave)="hideDropdown(item)">
 
-        <div class="flex-1 w-full lg:items-center justify-center ml-auto mr-auto lg:w-auto xl:block mt-2 lg:mt-0"
-            [class.hidden]="!isMenuOpen" id="nav-content">
-            <ul class="list-reset xl:flex justify-center items-center">
-                <ng-container *ngFor="let item of menuItems">
-                    <li class="mr-3" (mouseenter)="showDropdown($event, item)" (mouseleave)="hideDropdown(item)">
+                            <a class="inline-block hover:text-secondary py-2 px-4 text-white no-underline"
+                                [ngClass]="{ 'hover:text-gray-300': !item.childrens }">
+                                <fa-icon *ngIf="item.icon" [icon]="item.icon" class="mr-2"></fa-icon>
+                                {{ item.title }}
+                            </a>
 
-                        <a class="inline-block hover:text-secondary py-2 px-4 text-white no-underline"
-                            [ngClass]="{ 'hover:text-gray-300': !item.childrens }">
-                            <fa-icon *ngIf="item.icon" [icon]="item.icon" class="mr-2"></fa-icon>
-                            {{ item.title }}
-                        </a>
-
-                        <ul class="absolute xl:top-[70px] text-gray-700 pt-1 bg-gray-100 rounded-lg shadow-lg"
-                            *ngIf="item.childrens && item.showChildren" [ngStyle]="{ 'left': dropdownPosition.left }"
-                            (mouseenter)="showDropdown($event, item)" (mouseleave)="hideDropdown(item)">
-                            <ng-container *ngIf="item.route">
-                                <li *ngFor="let child of item.childrens" (mouseenter)="showDropdown($event, item)"
-                                    (mouseleave)="hideDropdown(item)">
-                                    <a class="block px-4 py-2 text-sm hover:bg-primary hover:text-white"
-                                        [routerLink]="item.route">
-                                        {{ child.title }}
-                                    </a>
-                                </li>
-                            </ng-container>
-                            <ng-container *ngIf="!item.route">
-                                <li *ngFor="let child of item.childrens" (mouseenter)="showDropdown($event, child)"
-                                    (mouseleave)="hideDropdown(child)">
-                                    <a class="block px-4 py-2 text-sm hover:bg-primary hover:text-white"
-                                        [routerLink]="child.route">
-                                        {{ child.title }}
-                                    </a>
-
-                                    <ul class="-mt-10 absolute size text-gray-700 pt-1 bg-gray-100 rounded-lg shadow-lg"
-                                        *ngIf="child.childrens && child.childrens!.length > 0 &&child.showChildren"
-                                        [ngStyle]="{ 'left': dropdownChildPosition.left, 'top': dropdownChildPosition.top }">
-                                        <li *ngFor="let subChild of child.childrens"
-                                            (mouseleave)="hideDropdown(subChild)">
-                                            <a class="block px-4 py-2 text-sm hover:bg-primary hover:text-white"
-                                                [routerLink]="subChild.route">
-                                                {{ subChild.title }}
+                            <ul class="absolute xl:top-[70px] text-gray-700 pt-1 bg-gray-100 rounded-lg shadow-lg"
+                                *ngIf="item.childrens && item.showChildren"
+                                [ngStyle]="{ 'left': dropdownPosition.left }" (mouseenter)="showDropdown($event, item)"
+                                (mouseleave)="hideDropdown(item)">
+                                <ng-container *ngIf="item.route">
+                                    <li *ngFor="let child of item.childrens" (mouseenter)="showDropdown($event, item)"
+                                        (mouseleave)="hideDropdown(item)">
+                                        <a class="block px-4 py-2 text-sm hover:bg-primary hover:text-white"
+                                            [routerLink]="item.route">
+                                            {{ child.title }}
+                                        </a>
+                                    </li>
+                                </ng-container>
+                                <ng-container *ngIf="!item.route">
+                                    <li 
+                                        class="hover:bg-primary hover:text-white" 
+                                        *ngFor="let child of item.childrens" 
+                                        (mouseenter)="showDropdown($event, child)"
+                                        (mouseleave)="hideDropdown(child)"
+                                    >
+                                        <div class="inline-flex w-full items-center hover:bg-primary hover:text-white">
+                                            <a class="flex-1 block px-4 py-2 text-sm hover:bg-primary hover:text-white"
+                                                [routerLink]="child.route">
+                                                {{ child.title }}
                                             </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ng-container>
-                        </ul>
-                    </li>
-                </ng-container>
-                
-                <div class="w-auto flex items-center justify-center">
-                    <div class="items-center justify-center w-20 ml-5 mr-5 h-20 gap-5 md:hidden xsm:hidden xl:flex">
-                        <hr class="border my-4 h-20">
+                                            <fa-icon [icon]="arrowIcon" class="mr-2"></fa-icon>
+                                        </div>
+                                        
+
+                                        <ul class="-mt-10 absolute size text-gray-700 pt-1 bg-gray-100 rounded-lg shadow-lg"
+                                            *ngIf="child.childrens && child.childrens!.length > 0 &&child.showChildren"
+                                            [ngStyle]="{ 'left': dropdownChildPosition.left, 'top': dropdownChildPosition.top }">
+                                            <li class="inline-flex w-full items-center hover:bg-primary hover:text-white" *ngFor="let subChild of child.childrens"
+                                                (mouseleave)="hideDropdown(subChild)">
+                                                <a class="flex-1 px-4 py-2 text-sm hover:bg-primary hover:text-white"
+                                                    [routerLink]="subChild.route">
+                                                    {{ subChild.title }}
+                                                </a>
+                                                <fa-icon [icon]="arrowIcon" class="mr-2"></fa-icon>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ng-container>
+                            </ul>
+                        </li>
+                    </ng-container>
+
+                    <div class="w-auto flex items-center justify-center">
+                        <div class="items-center justify-center w-20 ml-5 mr-5 h-20 gap-5 md:hidden xsm:hidden xl:flex">
+                            <hr class="border my-4 h-20">
+                        </div>
+                        <div class="">
+                            <fa-icon class="text-white mr-5" [icon]="userAccounte"></fa-icon>
+                            <span class="text-white">ridel saavedra flores</span>
+                        </div>
+                        <div class="text-white w-20 p-5">ES EN</div>
                     </div>
-                    <div class="">
-                        <fa-icon class="text-white mr-5" [icon]="userAccounte"></fa-icon>
-                        <span class="text-white">ridel saavedra flores</span>
-                    </div>
-                    <div class="text-white w-20 p-5">ES EN</div>
-                </div>
-            </ul>
-        </div>
+                </ul>
+            </div>
+        </ng-container>
     </div>
 </nav>

@@ -18,4 +18,6 @@ import { menu } from './constants/menu';
 })
 export class AppComponent {
   menuItems: MenuItem[] = menu;
+
+  constructor() {}
 }

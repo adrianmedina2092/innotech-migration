@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
@@ -9,8 +9,10 @@ import {
   IconDefinition,
   faBars,
   faCircleUser,
+  faChevronRight
 } from '@fortawesome/free-solid-svg-icons';
 import { DataService } from '../../../core/services/data.service';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'topbar',
@@ -19,13 +21,15 @@ import { DataService } from '../../../core/services/data.service';
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss',
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit{
   @Input() menuItems!: MenuItem[];
 
   logo: string = 'assets/logos/logo_caceis_blanco.png';
   menuIcon: IconDefinition = faBars;
   userAccounte: IconDefinition = faCircleUser;
+  arrowIcon: IconDefinition = faChevronRight
   isMenuOpen: boolean = false;
+  isAuth: boolean = false
 
   dropdownPosition = {
     top: '0',
@@ -37,7 +41,16 @@ export class NavbarComponent {
     left: '100%',
   };
 
-  constructor(private _dataService: DataService){}
+  constructor(
+    private _dataService: DataService,
+    private _authService: AuthService
+  ) {}
+
+  ngOnInit(): void {
+    console.log(this._authService.getIsAuth());
+    
+    this.isAuth = this._authService.getIsAuth()
+  }
 
   toggleMenu(): void {
     this.isMenuOpen = !this.isMenuOpen;
@@ -59,12 +72,9 @@ export class NavbarComponent {
       };
 
       this.dropdownChildPosition = {
-        top: `${(rect.top / 0)}px`,
+        top: `${rect.top / 0}px`,
         left: `${rect.right - rect.left}px`,
       };
-
-      console.log(this.dropdownChildPosition.top);
-      
     }
   }
 
@@ -72,7 +82,5 @@ export class NavbarComponent {
     item.showChildren = false;
   }
 
-  setValues(){
-
-  }
+  setValues() {}
 }
