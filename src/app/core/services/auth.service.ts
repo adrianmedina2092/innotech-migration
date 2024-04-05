@@ -46,8 +46,4 @@ export class AuthService {
       }),
     });
   }
-
-  sessionCheck(){
-    return this._http.post(`${environment.backendUrl}/auth/token`, {}, )
-  }
 }

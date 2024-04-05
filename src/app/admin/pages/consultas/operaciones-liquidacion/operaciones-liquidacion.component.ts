@@ -15,6 +15,7 @@ import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { faBriefcase } from '@fortawesome/free-solid-svg-icons';
 import { CommonModule } from '@angular/common';
 import { FiltrosService } from '../../../../core/services/filtros.service';
+import { DUMMY } from '../../../../mock/dummy';
 
 @Component({
   selector: 'app-operaciones-liquidacion',
@@ -30,10 +31,10 @@ export class OperacionesLiquidacionComponent implements OnInit {
   columns = COLUMNS_OPERACIONES_LIQUIDACION;
   displayedColumns = this.columns.map((c) => c.columnDef);
 
-  reportWasGenerated: boolean = false;
+  reportWasGenerated: boolean = true;
   loading: boolean = false
 
-  dataConsulta: string[][] = [];
+  dataConsulta: string[][] = DUMMY
 
   //datos para el hero header
   background: string = 'assets/images/bg-7.webp';
@@ -70,9 +71,9 @@ export class OperacionesLiquidacionComponent implements OnInit {
   constructor(private _filtersService: FiltrosService) {}
 
   ngOnInit(): void {
-    /* this._filtersService.getFilters(this.dataFilter).subscribe((resp) => {
+    this._filtersService.getFilters(this.dataFilter).subscribe((resp) => {
       console.log(resp);
-    }); */
+    });
     this.dataSource = new MatTableDataSource(
       transformDataConsulta(this.displayedColumns, this.dataConsulta)
     );

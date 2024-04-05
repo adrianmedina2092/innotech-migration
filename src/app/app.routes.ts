@@ -10,12 +10,11 @@ export const ROUTES: Routes = [
   {
     path: "home",
     component: HomeComponent,
-    canActivate: [authGuard]
+    //canActivate: [authGuard] descomentar para simular el funcionamiento normal de bloqueo de rutas
   },
   {
     path: 'page',
-    canActivate: [authGuard],
-    loadChildren: () =>
-      import('./admin/admin.routes').then((m) => m.ADMIN_ROUTES),
+    loadChildren: () => import('./admin/admin.routes').then((m) => m.ADMIN_ROUTES),
+    //canActivate: [authGuard] descomentar para simular el funcionamiento normal de bloqueo de rutas
   },
 ];

@@ -49,7 +49,7 @@ export class NavbarComponent implements OnInit{
   ngOnInit(): void {
     console.log(this._authService.getIsAuth());
     
-    this.isAuth = this._authService.getIsAuth()
+    /* this.isAuth = this._authService.getIsAuth() */
   }
 
   toggleMenu(): void {
